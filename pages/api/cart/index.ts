@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth/next";
 import { PrismaClient } from "@prisma/client";
 import { authOptions } from "../auth/[...nextauth]";
 
-/* global prisma pattern */
+/* ----------- GLOBAL PRISMA CLIENT ----------- */
 declare global {
   var prisma: PrismaClient | undefined;
 }
@@ -18,12 +18,13 @@ export const prisma =
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
+/* ----------- API HANDLER ----------- */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    // Lấy session
+    // --- Lấy session ---
     const session = await getServerSession(req, res, authOptions);
     if (!session) {
       return res.status(401).json({ message: "Bạn chưa đăng nhập" });
@@ -34,14 +35,14 @@ export default async function handler(
       return res.status(401).json({ message: "Không xác định được userId" });
     }
 
+    // ===================== GET CART =====================
     if (req.method === "GET") {
-      // Lấy cart (include cartitem và products + gallery)
       let cart = await prisma.cart.findFirst({
         where: { userId },
         include: {
-          cartitem: {
+          cartItems: {
             include: {
-              products: {
+              product: {
                 include: {
                   gallery: true,
                 },
@@ -51,14 +52,14 @@ export default async function handler(
         },
       });
 
-      // Nếu chưa có cart, tạo mới (chú ý nếu schema yêu cầu updatedAt, đảm bảo schema có @updatedAt)
+      // Nếu chưa có giỏ hàng → tạo mới
       if (!cart) {
         cart = await prisma.cart.create({
           data: { userId },
           include: {
-            cartitem: {
+            cartItems: {
               include: {
-                products: {
+                product: {
                   include: { gallery: true },
                 },
               },
@@ -67,22 +68,22 @@ export default async function handler(
         });
       }
 
-      // Map cartitem -> cartItems và rename products -> product để frontend không phải đổi
-      const cartItems = (cart?.cartitem ?? []).map((ci: any) => ({
+      // Map dữ liệu cho frontend
+      const cartItems = (cart?.cartItems ?? []).map((ci: any) => ({
         id: ci.id,
         productId: ci.productId,
         quantity: ci.quantity,
-        product: ci.products
+        product: ci.product
           ? {
-              id: ci.products.id,
-              title: ci.products.title,
-              price: ci.products.price,
-              discount: ci.products.discount,
-              thumbnail: ci.products.thumbnail,
-              colors: ci.products.colors,
-              sizes: ci.products.sizes,
-              gallery: Array.isArray(ci.products.gallery)
-                ? ci.products.gallery.map((g: any) => ({
+              id: ci.product.id,
+              title: ci.product.title,
+              price: ci.product.price,
+              discount: ci.product.discount,
+              thumbnail: ci.product.thumbnail,
+              colors: ci.product.colors,
+              sizes: ci.product.sizes,
+              gallery: Array.isArray(ci.product.gallery)
+                ? ci.product.gallery.map((g: any) => ({
                     thumbnail: g.thumbnail,
                   }))
                 : [],
@@ -98,7 +99,7 @@ export default async function handler(
       return res.status(200).json({ cartItems, totalQuantity });
     }
 
-    // POST: thêm sản phẩm vào giỏ (giữ nguyên logic)
+    // ===================== POST CART =====================
     if (req.method === "POST") {
       const { productId, quantity } = req.body;
       if (!productId || !quantity) {
@@ -114,21 +115,20 @@ export default async function handler(
 
       let cart = await prisma.cart.findFirst({ where: { userId } });
       if (!cart) {
-        // Nếu schema yêu cầu updatedAt không default, có thể sẽ lỗi ở đây — tốt nhất set @updatedAt trong schema.prisma
         cart = await prisma.cart.create({ data: { userId } });
       }
 
-      const existingItem = await prisma.cartitem.findFirst({
+      const existingItem = await prisma.cartItems.findFirst({
         where: { cartId: cart.id, productId },
       });
 
       if (existingItem) {
-        await prisma.cartitem.update({
+        await prisma.cartItems.update({
           where: { id: existingItem.id },
           data: { quantity: existingItem.quantity + qty },
         });
       } else {
-        await prisma.cartitem.create({
+        await prisma.cartItems.create({
           data: { cartId: cart.id, productId, quantity: qty },
         });
       }
@@ -136,6 +136,7 @@ export default async function handler(
       return res.status(200).json({ message: "Đã thêm vào giỏ hàng" });
     }
 
+    // ===================== METHOD NOT ALLOWED =====================
     res.setHeader("Allow", ["GET", "POST"]);
     return res
       .status(405)
