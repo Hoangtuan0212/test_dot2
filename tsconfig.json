@@ -18,7 +18,10 @@
       "@lib/*": ["lib/*"],
       "@/styles/*": ["styles/*"]
     },
-    "strictNullChecks": true
+    "strictNullChecks": true,
+
+    // 👇 THÊM DÒNG NÀY
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
   "include": [
     "next-env.d.ts",
