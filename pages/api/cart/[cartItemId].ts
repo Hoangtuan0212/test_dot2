@@ -1,7 +1,8 @@
 // pages/api/cart/[cartItemId].ts
 import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../api/auth/[...nextauth]";
+import { authOptions } from "../auth/[...nextauth]";
+
 import { PrismaClient } from "@prisma/client";
 
 let prisma: PrismaClient;
@@ -130,3 +131,4 @@ export default async function handler(
     return res.status(500).json({ message: "Lỗi server", error: (error as any)?.message ?? error });
   }
 }
+
