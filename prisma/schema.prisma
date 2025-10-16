@@ -59,7 +59,7 @@ model cart {
   cartItems CartItem[] @relation("CartToCartItem")
 }
 
-model CartItem {
+model cartItem {
   id        Int      @id @default(autoincrement())
   cartId    Int
   productId Int
