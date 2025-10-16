@@ -7,9 +7,8 @@
     "strict": true,
     "noEmit": true,
     "incremental": true,
-    "module": "commonjs", // Đã thay từ "esnext" thành "commonjs" để ts-node hoạt động
     "esModuleInterop": true,
-    "moduleResolution": "node", // Đã thay từ "bundler" thành "node" để tương thích với ts-node
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -18,10 +17,7 @@
       "@lib/*": ["lib/*"],
       "@/styles/*": ["styles/*"]
     },
-    "strictNullChecks": true,
-
-    // 👇 THÊM DÒNG NÀY
-    "typeRoots": ["./types", "./node_modules/@types"]
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
