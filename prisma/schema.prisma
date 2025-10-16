@@ -177,4 +177,11 @@ model user {
   review    review[]
   role      role?       @relation(fields: [role_id], references: [id], map: "User_role_id_fkey")
 
-  @@index([role_id], m_]()
+  @@index([role_id], map: "User_role_id_key")
+}
+
+enum user_gender {
+  MALE
+  FEMALE
+  OTHER
+}
