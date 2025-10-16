@@ -7,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/* ===================== PRODUCT ===================== */
 model Product {
   id                Int           @id @default(autoincrement())
   category_id       Int?
@@ -23,7 +24,7 @@ model Product {
   cartItems         CartItem[]    @relation("ProductToCartItem")
   gallery           gallery[]
   orderdetail       orderdetail[]
-  category          category?     @relation(fields: [category_id], references: [id], map: "Product_category_id_fkey")
+  category          category?     @relation(fields: [category_id], references: [id], onDelete: Cascade, map: "Product_category_id_fkey")
   review            review[]
 
   @@index([category_id], map: "Product_category_id_fkey")
@@ -31,6 +32,7 @@ model Product {
   @@map("products")
 }
 
+/* ===================== ADDRESS ===================== */
 model address {
   id        Int     @id @default(autoincrement())
   userId    Int
@@ -50,15 +52,17 @@ model address {
   @@index([userId], map: "Address_userId_idx")
 }
 
+/* ===================== CART ===================== */
 model cart {
   id        Int        @id @default(autoincrement())
   userId    Int?       @unique(map: "Cart_userId_key")
   createdAt DateTime   @default(now())
-  updatedAt DateTime
+  updatedAt DateTime   @updatedAt
   user      user?      @relation(fields: [userId], references: [id], map: "Cart_userId_fkey")
   cartItems CartItem[] @relation("CartToCartItem")
 }
 
+/* ===================== CART ITEM ===================== */
 model CartItem {
   id        Int      @id @default(autoincrement())
   cartId    Int
@@ -71,12 +75,14 @@ model CartItem {
   @@index([productId], map: "CartItem_productId_idx")
 }
 
+/* ===================== CATEGORY ===================== */
 model category {
   id      Int       @id @default(autoincrement())
   name    String
   product Product[]
 }
 
+/* ===================== FEEDBACK ===================== */
 model feedback {
   id           Int     @id @default(autoincrement())
   firstname    String? @db.VarChar(50)
@@ -87,15 +93,17 @@ model feedback {
   note         String?
 }
 
+/* ===================== GALLERY ===================== */
 model gallery {
   id         Int      @id @default(autoincrement())
   product_id Int?
   thumbnail  String?  @db.VarChar(255)
-  products   Product? @relation(fields: [product_id], references: [id], map: "Gallery_product_id_fkey")
+  products   Product? @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "Gallery_product_id_fkey")
 
   @@index([product_id], map: "Gallery_product_id_fkey")
 }
 
+/* ===================== ORDER ===================== */
 model order {
   id           Int           @id @default(autoincrement())
   user_id      Int?
@@ -114,6 +122,7 @@ model order {
   @@index([user_id], map: "Order_user_id_fkey")
 }
 
+/* ===================== ORDER DETAIL ===================== */
 model orderdetail {
   id          Int      @id @default(autoincrement())
   order_id    Int?
@@ -128,6 +137,7 @@ model orderdetail {
   @@index([product_id], map: "OrderDetail_product_id_fkey")
 }
 
+/* ===================== REVIEW ===================== */
 model review {
   id         Int      @id @default(autoincrement())
   product_id Int
@@ -142,12 +152,14 @@ model review {
   @@index([user_id], map: "Review_user_id_idx")
 }
 
+/* ===================== ROLE ===================== */
 model role {
   id   Int    @id @default(autoincrement())
   name String
   user user[]
 }
 
+/* ===================== USER ===================== */
 model user {
   id        Int         @id @default(autoincrement())
   lastName  String
@@ -157,7 +169,7 @@ model user {
   email     String      @unique(map: "User_email_key")
   password  String
   createdAt DateTime    @default(now())
-  updatedAt DateTime
+  updatedAt DateTime    @updatedAt
   role_id   Int?
   address   address[]
   cart      cart?
@@ -165,11 +177,4 @@ model user {
   review    review[]
   role      role?       @relation(fields: [role_id], references: [id], map: "User_role_id_fkey")
 
-  @@index([role_id], map: "User_role_id_key")
-}
-
-enum user_gender {
-  MALE
-  FEMALE
-  OTHER
-}
+  @@index([role_id], m_]()
