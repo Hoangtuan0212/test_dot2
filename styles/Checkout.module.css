@@ -1,0 +1,98 @@
+/* ===== styles/Checkout.module.css ===== */
+
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px 40px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 40px;
+}
+
+/* --- Cột trái: form nhập thông tin --- */
+.leftSection {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.formGroup input,
+.formGroup select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border 0.2s ease;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: #222;
+}
+
+/* --- Cột phải: tổng đơn hàng --- */
+.rightSection {
+  flex: 1;
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.orderSummary {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.orderBtn {
+  background-color: #222;
+  color: white;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s ease;
+}
+
+.orderBtn:hover {
+  background-color: #444;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .orderSummary {
+    text-align: left;
+  }
+}

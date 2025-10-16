@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id                Int           @id @default(autoincrement())
+  category_id       Int?
+  title             String        @db.VarChar(255)
+  price             Int           @default(0)
+  discount          Int           @default(0)
+  thumbnail         String?       @db.Text
+  description       String?       @db.LongText
+  created_at        DateTime      @default(now())
+  updated_at        DateTime      @updatedAt
+  colors            Json?
+  sizes             Json?
+  detailDescription String?       @db.LongText
+  cartitem          cartitem[]
+  gallery           gallery[]
+  orderdetail       orderdetail[]
+  category          category?     @relation(fields: [category_id], references: [id], map: "Product_category_id_fkey")
+  review            review[]
+
+  @@index([category_id], map: "Product_category_id_fkey")
+  @@index([title])
+  @@map("products")
+}
+
+model address {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  street    String  @db.VarChar(255)
+  city      String  @db.VarChar(100)
+  state     String? @db.VarChar(100)
+  country   String  @db.VarChar(100)
+  zipCode   String? @db.VarChar(20)
+  isDefault Boolean @default(false)
+  company   String? @db.VarChar(255)
+  firstName String  @db.VarChar(100)
+  lastName  String  @db.VarChar(100)
+  phone     String  @db.VarChar(20)
+  street2   String? @db.VarChar(255)
+  user      user    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Address_userId_fkey")
+
+  @@index([userId], map: "Address_userId_idx")
+}
+
+model cart {
+  id        Int        @id @default(autoincrement())
+  userId    Int?       @unique(map: "Cart_userId_key")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime
+  user      user?      @relation(fields: [userId], references: [id], map: "Cart_userId_fkey")
+  cartitem  cartitem[]
+}
+
+model cartitem {
+  id        Int     @id @default(autoincrement())
+  cartId    Int
+  productId Int
+  quantity  Int     @default(1)
+  cart      cart    @relation(fields: [cartId], references: [id], onDelete: Cascade, map: "CartItem_cartId_fkey")
+  products  Product @relation(fields: [productId], references: [id], onDelete: Cascade, map: "CartItem_productId_fkey")
+
+  @@index([cartId], map: "CartItem_cartId_idx")
+  @@index([productId], map: "CartItem_productId_idx")
+}
+
+model category {
+  id      Int       @id @default(autoincrement())
+  name    String
+  product Product[]
+}
+
+model feedback {
+  id           Int     @id @default(autoincrement())
+  firstname    String? @db.VarChar(50)
+  lastname     String? @db.VarChar(50)
+  email        String? @db.VarChar(100)
+  phone_number String? @db.VarChar(20)
+  subject_name String? @db.VarChar(255)
+  note         String?
+}
+
+model gallery {
+  id         Int      @id @default(autoincrement())
+  product_id Int?
+  thumbnail  String?  @db.VarChar(255)
+  products   Product? @relation(fields: [product_id], references: [id], map: "Gallery_product_id_fkey")
+
+  @@index([product_id], map: "Gallery_product_id_fkey")
+}
+
+model order {
+  id           Int           @id @default(autoincrement())
+  user_id      Int?
+  firstname    String?       @db.VarChar(100)
+  lastname     String?       @db.VarChar(100)
+  email        String?       @db.VarChar(100)
+  phone_number String?       @db.VarChar(20)
+  address      String?       @db.VarChar(255)
+  note         String?
+  order_date   DateTime      @default(now())
+  status       Int           @default(0)
+  total_money  Int
+  user         user?         @relation(fields: [user_id], references: [id], map: "Order_user_id_fkey")
+  orderdetail  orderdetail[]
+
+  @@index([user_id], map: "Order_user_id_fkey")
+}
+
+model orderdetail {
+  id          Int      @id @default(autoincrement())
+  order_id    Int?
+  product_id  Int?
+  price       Int
+  num         Int
+  total_money Int
+  order       order?   @relation(fields: [order_id], references: [id], onDelete: Cascade, map: "OrderDetail_order_id_fkey")
+  products    Product? @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "OrderDetail_product_id_fkey")
+
+  @@index([order_id], map: "OrderDetail_order_id_fkey")
+  @@index([product_id], map: "OrderDetail_product_id_fkey")
+}
+
+model review {
+  id         Int      @id @default(autoincrement())
+  product_id Int
+  user_id    Int?
+  rating     Int
+  comment    String?
+  created_at DateTime @default(now())
+  products   Product  @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "Review_product_id_fkey")
+  user       user?    @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "Review_user_id_fkey")
+
+  @@index([product_id], map: "Review_product_id_idx")
+  @@index([user_id], map: "Review_user_id_idx")
+}
+
+model role {
+  id   Int    @id @default(autoincrement())
+  name String
+  user user[]
+}
+
+model user {
+  id        Int         @id @default(autoincrement())
+  lastName  String
+  firstName String
+  gender    user_gender
+  birthDate DateTime?
+  email     String      @unique(map: "User_email_key")
+  password  String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime
+  role_id   Int?
+  address   address[]
+  cart      cart?
+  order     order[]
+  review    review[]
+  role      role?       @relation(fields: [role_id], references: [id], map: "User_role_id_fkey")
+
+  @@index([role_id], map: "User_role_id_key")
+}
+
+enum user_gender {
+  MALE
+  FEMALE
+  OTHER
+}

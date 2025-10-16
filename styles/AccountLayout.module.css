@@ -1,0 +1,37 @@
+/* styles/AccountLayout.module.css */
+.accountContainer {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto; /* canh giữa màn hình */
+  padding: 20px 0;
+}
+
+/* Menu bên trái */
+.menu {
+  width: 250px;
+  margin-right: 40px;
+  border-right: 1px solid #ddd;
+  padding-right: 20px;
+}
+.menu h2 {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.menu ul li {
+  margin-bottom: 12px;
+}
+.menu ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+
+/* Nội dung bên phải */
+.content {
+  flex: 1;
+}

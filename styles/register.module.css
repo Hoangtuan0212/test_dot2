@@ -1,0 +1,116 @@
+/* Container chính của form đăng ký */
+.registerContainer {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+/* Tiêu đề của trang đăng ký */
+.registerTitle {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form đăng ký */
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Ô nhập liệu */
+.registerInput {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Hiệu ứng khi nhập vào ô input */
+.registerInput:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Nhóm nhập họ và tên */
+.nameGroup {
+  display: flex;
+  gap: 10px;
+}
+
+/* Radio button cho giới tính */
+.genderGroup {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.genderGroup label {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.genderGroup input {
+  margin-right: 5px;
+}
+
+/* Nút đăng ký */
+.registerButton {
+  background: black;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
+}
+
+.registerButton:hover {
+  background: #333;
+}
+
+/* Phần chuyển hướng sang đăng nhập */
+.registerSwitchText {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.registerSwitchLink {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+  background: none;
+  border: none;
+  margin-left: 5px;
+  font-size: 14px;
+  transition: color 0.3s ease-in-out;
+}
+
+.registerSwitchLink:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* Responsive cho màn hình nhỏ hơn */
+@media (max-width: 480px) {
+  .registerContainer {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .nameGroup {
+    flex-direction: column;
+  }
+}

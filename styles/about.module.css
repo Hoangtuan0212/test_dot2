@@ -1,0 +1,96 @@
+.aboutContainer {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+}
+
+/* Hero Section */
+.heroSection {
+  position: relative; /* Bắt buộc để Image có thể fill */
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.heroText {
+  position: absolute;
+  text-align: center;
+  color: white;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5); /* Nền mờ giúp chữ dễ đọc hơn */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.heroText h1 {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.heroText p {
+  font-size: 20px;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+/* Mission Section */
+.missionSection {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+
+.missionSection h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.missionSection p {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Team Section */
+.teamSection {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.teamSection h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.teamSection p {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .heroText h1 {
+    font-size: 36px;
+  }
+
+  .heroText p {
+    font-size: 16px;
+  }
+
+  .missionSection h2,
+  .teamSection h2 {
+    font-size: 28px;
+  }
+
+  .missionSection p,
+  .teamSection p {
+    font-size: 16px;
+  }
+}

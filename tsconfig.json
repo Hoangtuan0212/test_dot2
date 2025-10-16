@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "incremental": true,
+    "module": "commonjs", // Đã thay từ "esnext" thành "commonjs" để ts-node hoạt động
+    "esModuleInterop": true,
+    "moduleResolution": "node", // Đã thay từ "bundler" thành "node" để tương thích với ts-node
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@lib/*": ["lib/*"],
+      "@/styles/*": ["styles/*"]
+    },
+    "strictNullChecks": true
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "lib/**/*.ts",
+    "context/CartContext.tsx"
+  ],
+  "exclude": ["node_modules"]
+}

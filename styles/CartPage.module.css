@@ -1,0 +1,345 @@
+/* Container chính */
+.cartPageContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Thanh thông báo */
+.notificationBar {
+  background: #e0f7fa;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+/* Layout chính: chia 2 cột */
+.mainContent {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap; /* ✅ Giúp co giãn tự nhiên trên màn hình nhỏ */
+}
+
+/* Cột trái */
+.leftColumn {
+  flex: 2;
+  min-width: 600px; /* ✅ tránh co quá nhỏ */
+}
+
+.cartList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+.itemImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.itemInfo {
+  flex: 1;
+  padding: 0 15px;
+}
+
+.itemName {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 5px;
+}
+
+.itemPrice {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.quantityWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.qtyBtn {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.qtyValue {
+  margin: 0 10px;
+}
+
+.removeBtn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+}
+
+/* Ô ghi chú đơn hàng */
+.noteSection {
+  margin-top: 20px;
+}
+.noteSection textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Cột phải: Thông tin đơn hàng */
+.rightColumn {
+  flex: 1;
+  min-width: 250px;
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 4px;
+  position: sticky;
+  top: 20px;
+}
+
+.orderSummary h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.checkoutBtn {
+  width: 100%;
+  padding: 12px;
+  background: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+/* ============================== */
+/* 🔥 Phần gợi ý sản phẩm tối ưu */
+/* ============================== */
+.suggestionGrid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(240px, 1fr)
+  ); /* ✅ Responsive */
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.suggestionItem {
+  width: 100%;
+  border: 1px solid #f1f1f1;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+}
+.suggestionItem:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================== */
+/* Ảnh chính và ảnh hover có hiệu ứng trượt mượt */
+/* ============================== */
+.suggestionImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+}
+
+.mainImage,
+.hoverImage {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.6s ease;
+}
+
+/* Mặc định: ảnh chính hiển thị, ảnh hover nằm bên phải */
+.mainImage {
+  transform: translateX(0);
+}
+.hoverImage {
+  transform: translateX(100%);
+}
+
+/* Khi hover: ảnh chính trượt sang trái, ảnh hover trượt vào */
+.suggestionImageWrapper:hover .mainImage {
+  transform: translateX(-100%);
+}
+.suggestionImageWrapper:hover .hoverImage {
+  transform: translateX(0);
+}
+
+/* ============================== */
+/* Overlay con mắt (Quick View) */
+/* ============================== */
+.hoverOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+.suggestionImageWrapper:hover .hoverOverlay {
+  opacity: 1;
+}
+
+.quickViewBtn {
+  background: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  color: #111;
+  padding: 0.6rem;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.quickViewBtn:hover {
+  background: #f3f3f3;
+  transform: scale(1.1);
+}
+
+/* ============================== */
+/* Thông tin sản phẩm */
+/* ============================== */
+.infoSection {
+  padding: 1rem;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.colorRow {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.colorDot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+.sizeLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.productTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0.25rem 0;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.productTitle:hover {
+  color: #e11d48;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #fbbf24;
+  margin-bottom: 0.25rem;
+}
+
+.ratingCount {
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+/* ✅ Responsive cho mobile & tablet */
+@media (max-width: 992px) {
+  .mainContent {
+    flex-direction: column;
+  }
+
+  .leftColumn,
+  .rightColumn {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .suggestionGrid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .suggestionImageWrapper {
+    height: 260px;
+  }
+}
+
+@media (max-width: 576px) {
+  .suggestionImageWrapper {
+    height: 220px;
+  }
+
+  .productTitle {
+    font-size: 0.8rem;
+  }
+
+  .price {
+    font-size: 0.9rem;
+  }
+}

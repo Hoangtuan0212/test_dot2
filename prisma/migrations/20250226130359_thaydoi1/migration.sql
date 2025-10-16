@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE `user` ALTER COLUMN `lastName` DROP DEFAULT,
+    ALTER COLUMN `firstName` DROP DEFAULT,
+    ALTER COLUMN `gender` DROP DEFAULT,
+    ALTER COLUMN `birthDate` DROP DEFAULT;

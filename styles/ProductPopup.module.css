@@ -1,0 +1,244 @@
+/* ProductPopup.module.css */
+
+/* Overlay mờ toàn màn hình */
+.popupOverlay {
+  position: fixed;
+  z-index: 9999; /* Đảm bảo popup nằm trên cùng */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Container chính của popup */
+.popupContainer {
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  overflow-y: auto;
+  max-height: 90vh; /* Giúp popup không vượt quá chiều cao màn hình */
+}
+
+/* Nút đóng (dấu X) */
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.2s;
+}
+.closeButton:hover {
+  color: #000;
+}
+
+/* Khu vực bên trái (hình ảnh) */
+.leftSide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Canh giữa ảnh */
+}
+
+/* Ảnh chính */
+.mainImageContainer {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Giới hạn chiều rộng ảnh chính */
+  height: 500px; /* Chiều cao cố định để giữ form */
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+/* Các nút mũi tên chuyển ảnh */
+.arrowButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 2;
+  color: #333;
+  transition: background-color 0.2s;
+}
+.arrowButton:hover {
+  background-color: #e0e0e0;
+}
+.leftArrow {
+  left: 0.5rem;
+}
+.rightArrow {
+  right: 0.5rem;
+}
+
+/* Thumbnails bên dưới ảnh chính */
+.thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 500px; /* Căn theo max-width của ảnh chính */
+}
+
+.thumbnailItem {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.thumbnailItem:hover {
+  opacity: 0.8;
+}
+.thumbnailItem.active {
+  border-color: #e4002b; /* Viền màu đỏ khi ảnh được chọn */
+}
+
+/* Khu vực bên phải (thông tin sản phẩm) */
+.rightSide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Tên sản phẩm */
+.productTitle {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Thông tin phụ (mã sản phẩm, tình trạng) */
+.productMeta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Giá */
+.price {
+  font-size: 1.4rem;
+  color: #e4002b; /* Đỏ đậm */
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* Màu sắc */
+.colorSection {
+  margin-bottom: 1rem;
+}
+.colorOptions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.colorOption {
+  width: 32px;
+  height: 32px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.colorOption:hover {
+  border-color: #ccc;
+}
+.colorOption.selected {
+  border-color: #000;
+}
+
+/* Kích thước */
+.sizeSection {
+  margin-bottom: 1rem;
+}
+.sizeOptions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.sizeOption {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  font-size: 0.9rem;
+}
+.sizeOption:hover {
+  background: #eee;
+}
+.sizeOption.selected {
+  background: #000;
+  color: #fff;
+}
+
+/* Số lượng */
+.quantitySection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.quantityButton {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ddd;
+  background: #f7f7f7;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+}
+.quantityValue {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Nút thêm vào giỏ */
+.addCartButton {
+  background-color: #e4002b;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background 0.3s;
+  margin-bottom: 1rem;
+}
+.addCartButton:hover {
+  background-color: #c30025;
+}
+
+/* Link xem chi tiết */
+.detailLink {
+  display: inline-block;
+  margin-top: 0.5rem;
+  text-decoration: underline;
+  color: #000;
+  font-size: 0.9rem;
+}
+.detailLink:hover {
+  opacity: 0.8;
+}

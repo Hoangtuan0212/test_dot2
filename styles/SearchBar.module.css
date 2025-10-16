@@ -1,0 +1,140 @@
+/* Icon kính lúp */
+.searchIcon {
+  cursor: pointer;
+  padding: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Khung tìm kiếm: fixed, bỏ qua icon, sát phải màn hình */
+.searchDropdown {
+  position: fixed;
+  top: 80px; /* tuỳ chỉnh để nằm dưới header */
+  right: 20px; /* cách mép phải 20px */
+  width: 400px; /* khung to */
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  padding: 1rem;
+}
+
+/* Header */
+.searchHeader {
+  position: relative;
+  margin-bottom: 0.5rem;
+  text-align: center; /* tiêu đề giữa */
+}
+.searchTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #555;
+}
+
+/* Thân */
+.searchBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.searchInput {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+/* Kết quả */
+.resultList {
+  max-height: 300px;
+  overflow-y: auto;
+  border-top: 1px solid #eee;
+  padding-top: 0.5rem;
+}
+.noResult {
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* Mỗi item */
+.resultItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.resultItem + .resultItem {
+  border-top: 1px solid #f9f9f9;
+}
+.resultItem:hover {
+  background: #f5f5f5;
+}
+.imageWrapper {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.infoWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.productName {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+}
+.priceGroup {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.oldPrice {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.85rem;
+}
+.discountPrice {
+  color: #e74c3c;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.price {
+  color: #333;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.viewMore {
+  text-align: center;
+  padding: 0.5rem 0;
+  color: #333;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border-top: 1px solid #eee;
+  margin-top: 0.5rem;
+}
+.viewMore:hover {
+  text-decoration: underline;
+}
